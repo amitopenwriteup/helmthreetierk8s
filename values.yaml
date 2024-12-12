@@ -1,0 +1,27 @@
+# WordPress settings
+wordpress:
+  replicaCount: 1
+  image: wordpress:latest
+  nodePort: 30080
+  pvSize: 10Gi
+
+# MariaDB settings
+mariadb:
+  replicaCount: 1
+  image: mariadb:latest
+  pvSize: 10Gi
+  nodePort: null
+
+# phpMyAdmin settings
+phpmyadmin:
+  replicaCount: 1
+  image: phpmyadmin/phpmyadmin:latest
+  nodePort: 30081
+
+# Secrets
+dbSecret:
+  MYSQL_ROOT_PASSWORD: password
+  MYSQL_USER: root
+  MYSQL_PASSWORD: password
+  MYSQL_DATABASE: wordpress
+

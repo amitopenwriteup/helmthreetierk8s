@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wp-pv
+spec:
+  capacity:
+    storage: {{ .Values.wordpress.pvSize }}
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/wpcontent
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wb-pvc
+  namespace: wordpress
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+

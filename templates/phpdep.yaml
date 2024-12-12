@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "wordpress-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.phpmyadmin.replicaCount }}
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: {{ .Values.phpmyadmin.image }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: db
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: MYSQL_ROOT_PASSWORD
+
